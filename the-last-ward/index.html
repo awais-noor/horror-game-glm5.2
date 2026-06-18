@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Last Ward</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="game"></div>
+
+<!-- ===== LOADING ===== -->
+<div id="loadingScreen">
+  <div>LOADING THE WARD…</div>
+  <div class="bar"></div>
+  <div class="tiny" style="margin-top:14px">headphones recommended</div>
+</div>
+
+<!-- ===== HUD ===== -->
+<div id="hud">
+  <div id="vignette"></div>
+  <div id="crosshair"></div>
+  <div id="interactPrompt"></div>
+  <div id="toast"></div>
+  <div id="subtitle"></div>
+  <div id="statusBox">
+    <div id="healthText">HEALTH <span class="num">100%</span></div>
+    <div id="healthBar"><div id="healthFill"></div></div>
+    <div id="batteryText">FLASHLIGHT <span class="num">100%</span></div>
+    <div id="batteryBar"><div id="batteryFill"></div></div>
+    <div id="keysText">FUSE KEYS <span class="num">0 / 3</span></div>
+    <div id="objText"></div>
+  </div>
+  <div id="hintBox"></div>
+  <div id="hitFlash"></div>
+</div>
+<div id="hurtPulse"></div>
+<div id="cinemabars"></div>
+<div id="cinemabars" class="bottom"></div>
+<div id="fade"></div>
+<div id="endingText"></div>
+
+<!-- ===== NOTE READING ===== -->
+<div id="noteOverlay">
+  <div class="note-paper" id="notePaper">
+    <h3 id="noteTitle">NOTE</h3>
+    <div id="noteBody"></div>
+    <div class="close-hint">[ E ] or [ Esc ] — put down</div>
+  </div>
+</div>
+
+<!-- ===== KEYPAD ===== -->
+<div id="keypadOverlay">
+  <div class="keypad">
+    <div class="display" id="keypadDisplay">_ _ _ _</div>
+    <div class="grid" id="keypadGrid"></div>
+    <div class="actions">
+      <button class="clear" id="kpClear">CLEAR</button>
+      <button class="enter" id="kpEnter">ENTER</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MAIN MENU ===== -->
+<div id="menuScreen" class="screen">
+  <div class="title">THE LAST <span class="glitch">WARD</span></div>
+  <div class="subtitle">NIGHT SHIFT · WING THREE</div>
+  <div class="menu">
+    <button class="btn primary" id="btnStart">Start Game</button>
+    <div class="diff-row">
+      <button class="btn diff-btn active" id="btnEasy">Easy</button>
+      <button class="btn diff-btn" id="btnHard">Hard</button>
+    </div>
+    <button class="btn" id="btnControls">Controls</button>
+    <button class="btn danger" id="btnQuit">Quit</button>
+  </div>
+  <div class="menu-hint">click Start, then click the screen to lock the mouse</div>
+</div>
+
+<!-- ===== CONTROLS PANEL ===== -->
+<div id="controlsScreen" class="screen hidden">
+  <div class="panel-title">CONTROLS</div>
+  <div class="controls-list">
+    <div>Move</div><div><span class="key">W A S D</span></div>
+    <div>Look</div><div><span class="key">Mouse</span></div>
+    <div>Sprint</div><div><span class="key">Shift</span></div>
+    <div>Crouch</div><div><span class="key">Ctrl</span></div>
+    <div>Interact</div><div><span class="key">E</span></div>
+    <div>Flashlight</div><div><span class="key">F</span></div>
+    <div>Pause</div><div><span class="key">Esc</span></div>
+  </div>
+  <div class="menu">
+    <button class="btn" id="btnBackFromControls">Back</button>
+  </div>
+</div>
+
+<!-- ===== INTRO STORY ===== -->
+<div id="introScreen" class="screen hidden">
+  <div class="panel-title">PROLOGUE</div>
+  <div class="story">
+    <p>You are the night-shift cleaner. You don't remember lying down.</p>
+    <p>A red emergency alarm is screaming through Wing Three — a ward that was sealed years ago, after the patients of <span class="red">Room 309</span> began to vanish.</p>
+    <p>The lights are dead. The exit is locked. Somewhere in the dark, a patient who was never discharged is still waiting.</p>
+    <p>Find the three <span class="red">fuse keys</span>. Restore the generator. Get out before Subject 309 finds you.</p>
+  </div>
+  <div class="menu">
+    <button class="btn primary" id="btnEnterWard">Enter the Ward</button>
+  </div>
+</div>
+
+<!-- ===== PAUSE ===== -->
+<div id="pauseScreen" class="screen hidden">
+  <div class="title" style="font-size:48px">PAUSED</div>
+  <div class="menu">
+    <button class="btn primary" id="btnResume">Resume</button>
+    <button class="btn" id="btnPauseControls">Controls</button>
+    <button class="btn danger" id="btnQuitToMenu">Quit to Menu</button>
+  </div>
+</div>
+
+<!-- ===== DEATH ===== -->
+<div id="deathScreen" class="screen hidden">
+  <div class="title" style="color:#7a3030"><span class="glitch">YOU</span> DIDN'T MAKE IT</div>
+  <div class="subtitle" id="deathSub">SUBJECT 309 FOUND YOU</div>
+  <div class="menu">
+    <button class="btn primary" id="btnRetry">Try Again</button>
+    <button class="btn danger" id="btnDeathQuit">Quit to Menu</button>
+  </div>
+</div>
+
+<!-- ===== WIN ===== -->
+<div id="winScreen" class="screen hidden">
+  <div class="title" style="font-size:44px">YOU ESCAPED</div>
+  <div class="subtitle" id="winSub">— but Room 309 is open now —</div>
+  <div class="menu">
+    <button class="btn primary" id="btnPlayAgain">Play Again</button>
+    <button class="btn" id="btnWinMenu">Main Menu</button>
+  </div>
+</div>
+
+<!-- ===== QUIT CONFIRM ===== -->
+<div id="quitScreen" class="screen hidden">
+  <div class="panel-title">LEAVE?</div>
+  <div class="subtitle" style="margin:10px 0 26px">close the game tab</div>
+  <div class="menu">
+    <button class="btn" id="btnQuitConfirm">Close Tab</button>
+    <button class="btn primary" id="btnQuitCancel">Stay</button>
+  </div>
+</div>
+
+<!-- ===== Three.js ===== -->
+<script src="lib/three.min.js"></script>
+
+<!-- ===== Game modules ===== -->
+<script src="js/utils.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/input.js"></script>
+<script src="js/level.js"></script>
+<script src="js/player.js"></script>
+<script src="js/enemy.js"></script>
+<script src="js/scares.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
